@@ -21,6 +21,7 @@ function withFetching(WrappedComponent, props) {
         this.fetch();
         console.log('isFetching');
       } catch (e) {
+        console.log('isCatching');
         if (this.props.onError) {
           this.props.onError(e);
         }
@@ -69,8 +70,9 @@ function withFetching(WrappedComponent, props) {
       return xhr;
     }
 
-    fetch() {
-      this.xhr.send();
+    async fetch() {
+      const temp = this.xhr.send();
+      console.log(temp);
     }
 
     abort() {

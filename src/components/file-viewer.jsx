@@ -52,7 +52,7 @@ class FileViewer extends Component {
         return PDFViewer;
       }
       case 'docx': {
-        return DocxViewer;
+        return withFetching(DocxViewer, this.props);
       }
       case 'mp3': {
         return AudioViewer;

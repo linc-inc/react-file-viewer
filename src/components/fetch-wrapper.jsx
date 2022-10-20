@@ -1,13 +1,16 @@
+/* eslint-disable no-shadow */
+/* eslint-disable quotes */
 // Copyright (c) 2017 PlanGrid, Inc.
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Error from './error';
-import Loading from './loading';
+import Error from "./error";
+import Loading from "./loading";
 
 function withFetching(WrappedComponent, props) {
   return class extends Component {
-    constructor(props) { // eslint-disable-line no-shadow
+    constructor(props) {
+      // eslint-disable-line no-shadow
       super(props);
       this.state = {};
       this.xhr = this.createRequest(props.filePath);
@@ -20,7 +23,7 @@ function withFetching(WrappedComponent, props) {
         if (this.props.onError) {
           this.props.onError(e);
         }
-        this.setState({ error: 'fetch error' });
+        this.setState({ error: "fetch error" });
       }
     }
 
@@ -31,15 +34,16 @@ function withFetching(WrappedComponent, props) {
     createRequest(path) {
       let xhr = new XMLHttpRequest();
 
-      if ('withCredentials' in xhr) {
+      if ("withCredentials" in xhr) {
         // XHR for Chrome/Firefox/Opera/Safari.
-        xhr.open('GET', path, true);
-      } else if (typeof XDomainRequest !== 'undefined') {
+        xhr.open("GET", path, true);
+      } else if (typeof XDomainRequest !== "undefined") {
         // XDomainRequest for IE.
         xhr = new XDomainRequest();
-        xhr.open('GET', path);
+        xhr.open("GET", path);
       } else {
         // CORS not supported.
+        console.log("cors");
         xhr = null;
         return null;
       }
@@ -53,6 +57,7 @@ function withFetching(WrappedComponent, props) {
           return;
         }
         const resp = props.responseType ? xhr.response : xhr.responseText;
+        console.log("resp", resp);
 
         this.setState({ data: resp });
       };
@@ -72,19 +77,20 @@ function withFetching(WrappedComponent, props) {
 
     render() {
       if (!this.xhr) {
+        console.log("case 1");
         return <h1>CORS not supported..</h1>;
       }
 
       if (this.state.error) {
+        console.log("case 2");
         return <Error {...this.props} error={this.state.error} />;
       }
 
       if (this.state.data) {
+        console.log("case 3");
         return <WrappedComponent data={this.state.data} {...this.props} />;
       }
-      return (
-        <Loading />
-      );
+      return <Loading />;
     }
   };
 }

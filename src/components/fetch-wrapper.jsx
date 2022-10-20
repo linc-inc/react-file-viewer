@@ -19,6 +19,7 @@ function withFetching(WrappedComponent, props) {
     componentDidMount() {
       try {
         this.fetch();
+        console.log('isFetching');
       } catch (e) {
         if (this.props.onError) {
           this.props.onError(e);
@@ -52,6 +53,8 @@ function withFetching(WrappedComponent, props) {
       }
 
       xhr.onload = () => {
+        console.log('xhr onload', xhr);
+
         if (xhr.status >= 400) {
           this.setState({ error: `fetch error with status ${xhr.status}` });
           return;
@@ -60,6 +63,7 @@ function withFetching(WrappedComponent, props) {
         console.log("resp", resp);
 
         this.setState({ data: resp });
+        console.log('reached?');
       };
 
       return xhr;
@@ -76,6 +80,8 @@ function withFetching(WrappedComponent, props) {
     }
 
     render() {
+      console.log('render', this.xhr);
+
       if (!this.xhr) {
         console.log("case 1");
         return <h1>CORS not supported..</h1>;

@@ -19,9 +19,9 @@ function withFetching(WrappedComponent, props) {
     componentDidMount() {
       try {
         this.fetch();
-        console.log('isFetching');
+        console.log("isFetching");
       } catch (e) {
-        console.log('isCatching');
+        console.log("isCatching");
         if (this.props.onError) {
           this.props.onError(e);
         }
@@ -53,8 +53,13 @@ function withFetching(WrappedComponent, props) {
         xhr.responseType = props.responseType;
       }
 
+      xhr.onerror = () => {
+        console.log('ERROR');
+        this.setState({ error: `fetch error with status ${xhr.status}` });
+      };
+
       xhr.onload = () => {
-        console.log('xhr onload', xhr);
+        console.log("xhr onload", xhr);
 
         if (xhr.status >= 400) {
           this.setState({ error: `fetch error with status ${xhr.status}` });
@@ -64,15 +69,14 @@ function withFetching(WrappedComponent, props) {
         console.log("resp", resp);
 
         this.setState({ data: resp });
-        console.log('reached?');
+        console.log("reached?");
       };
 
       return xhr;
     }
 
     async fetch() {
-      const temp = this.xhr.send();
-      console.log(temp);
+      this.xhr.send();
     }
 
     abort() {
@@ -82,7 +86,7 @@ function withFetching(WrappedComponent, props) {
     }
 
     render() {
-      console.log('render', this.xhr);
+      console.log("render", this.xhr);
 
       if (!this.xhr) {
         console.log("case 1");

@@ -2,7 +2,7 @@
 
 exports[`Error component matches stored snapshot 1`] = `
 <div
-  className="error-message"
+  className="react-file-viewer-error-message"
 >
   <p
     className="alert"

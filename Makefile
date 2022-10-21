@@ -4,10 +4,10 @@ publish:
 	npm run tag-and-publish
 
 start:
-	npm start
+	yarn start
 
 lint:
-	npm run lint
+	yarn run lint
 
 test:
-	npm test
+	yarn test

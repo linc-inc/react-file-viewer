@@ -55,14 +55,14 @@ function withFetching(WrappedComponent, props) {
 
       xhr.onerror = () => {
         console.log('ERROR');
-        this.setState({ error: `fetch error with status ${xhr.status}` });
+        this.setState({ error: `fetch error` });
       };
 
       xhr.onload = () => {
         console.log("xhr onload", xhr);
 
         if (xhr.status >= 400) {
-          this.setState({ error: `fetch error with status ${xhr.status}` });
+          this.setState({ error: `fetch error` });
           return;
         }
         const resp = props.responseType ? xhr.response : xhr.responseText;

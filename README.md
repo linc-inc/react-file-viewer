@@ -1,4 +1,3 @@
-
 # react-file-viewer
 
 Extendable file viewer for web
@@ -12,7 +11,6 @@ Extendable file viewer for web
  - docx
  - Video: mp4, webm
  - Audio: mp3
-
 
 ## Usage
 
@@ -72,7 +70,7 @@ purposes. It is by default served via webpack-dev-server.
 
 ### To start demo app
 
-`make start` will start the demo app served by webpack-dev-server
+`make start` will start the demo app served by webpack-dev-server in http://localhost:8081
 
 ### Testing
 

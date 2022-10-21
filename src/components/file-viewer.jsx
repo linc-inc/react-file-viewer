@@ -46,23 +46,23 @@ class FileViewer extends Component {
       case 'gif':
       case 'bmp':
       case 'png': {
-        return PhotoViewerWrapper;
+        return withFetching(PhotoViewerWrapper, this.props);
       }
       case 'pdf': {
-        return PDFViewer;
+        return withFetching(PDFViewer, this.props);
       }
       case 'docx': {
         return withFetching(DocxViewer, this.props);
       }
       case 'mp3': {
-        return AudioViewer;
+        return withFetching(AudioViewer, this.props);
       }
       case 'webm':
       case 'mp4': {
-        return VideoViewer;
+        return withFetching(VideoViewer, this.props);
       }
       case 'wexbim': {
-        return XBimViewer;
+        return withFetching(XBimViewer, this.props);
       }
       default: {
         return UnsupportedViewer;

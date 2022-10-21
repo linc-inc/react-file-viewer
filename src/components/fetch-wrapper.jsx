@@ -19,9 +19,7 @@ function withFetching(WrappedComponent, props) {
     componentDidMount() {
       try {
         this.fetch();
-        console.log("isFetching");
       } catch (e) {
-        console.log("isCatching");
         if (this.props.onError) {
           this.props.onError(e);
         }
@@ -45,7 +43,6 @@ function withFetching(WrappedComponent, props) {
         xhr.open("GET", path);
       } else {
         // CORS not supported.
-        console.log("cors");
         xhr = null;
         return null;
       }
@@ -54,22 +51,17 @@ function withFetching(WrappedComponent, props) {
       }
 
       xhr.onerror = () => {
-        console.log('ERROR');
         this.setState({ error: `fetch error` });
       };
 
       xhr.onload = () => {
-        console.log("xhr onload", xhr);
-
         if (xhr.status >= 400) {
           this.setState({ error: `fetch error` });
           return;
         }
-        const resp = props.responseType ? xhr.response : xhr.responseText;
-        console.log("resp", resp);
 
+        const resp = props.responseType ? xhr.response : xhr.responseText;
         this.setState({ data: resp });
-        console.log("reached?");
       };
 
       return xhr;
@@ -86,20 +78,15 @@ function withFetching(WrappedComponent, props) {
     }
 
     render() {
-      console.log("render", this.xhr);
-
       if (!this.xhr) {
-        console.log("case 1");
         return <h1>CORS not supported..</h1>;
       }
 
       if (this.state.error) {
-        console.log("case 2");
         return <Error {...this.props} error={this.state.error} />;
       }
 
       if (this.state.data) {
-        console.log("case 3");
         return <WrappedComponent data={this.state.data} {...this.props} />;
       }
       return <Loading />;

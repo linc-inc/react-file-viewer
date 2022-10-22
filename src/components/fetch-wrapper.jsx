@@ -88,6 +88,7 @@ function withFetching(WrappedComponent, props) {
       }
 
       if (this.state.data) {
+        if (this.props.onSuccess) this.props.onSuccess();
         return <WrappedComponent data={this.state.data} {...this.props} />;
       }
       return <Loading />;

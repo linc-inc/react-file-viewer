@@ -50,8 +50,9 @@ function withFetching(WrappedComponent, props) {
         xhr.responseType = props.responseType;
       }
 
-      xhr.onerror = () => {
+      xhr.onerror = (e) => {
         this.setState({ error: `fetch error` });
+        this.props.onError(e);
       };
 
       xhr.onload = () => {

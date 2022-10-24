@@ -50,8 +50,9 @@ function withFetching(WrappedComponent, props) {
         xhr.responseType = props.responseType;
       }
 
-      xhr.onerror = () => {
+      xhr.onerror = (e) => {
         this.setState({ error: `fetch error` });
+        this.props.onError(e);
       };
 
       xhr.onload = () => {
@@ -87,6 +88,7 @@ function withFetching(WrappedComponent, props) {
       }
 
       if (this.state.data) {
+        if (this.props.onSuccess) this.props.onSuccess();
         return <WrappedComponent data={this.state.data} {...this.props} />;
       }
       return <Loading />;
